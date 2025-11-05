@@ -6,7 +6,9 @@ import VueRouter from 'vue-router';
 import App from './App.vue';
 import routes from './router';
 import store from './store';
+import { preFetchLib, bindVueRuntime } from "hel-micro";
 
+bindVueRuntime({ Vue });
 Vue.config.productionTip = false;
 
 Vue.use(ElementUI);
@@ -51,10 +53,24 @@ function storeTest(props) {
 export async function bootstrap() {
   console.log('[vue] vue app bootstraped');
 }
+async function main() {
+
+  // from user custom deploy location
+  await preFetchLib("hel-tpl-remote-vue2-rsbuild-comp", {
+    custom: {
+      host: 'http://localhost:7001', // 微模块开发环境联调
+      // host: 'http://localhost:9001', // 微模块打包后联调
+      enable: true,
+    },
+  });
+
+}
 
 export async function mount(props) {
   console.log('[vue] props from main framework', props);
   storeTest(props);
+
+  await main().catch(console.error);
   render(props);
 }
 

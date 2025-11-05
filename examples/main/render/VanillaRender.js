@@ -1,8 +1,9 @@
-import { loadMicroApp } from '../../../packages/qiankun/dist/esm';
+import { loadMicroApp } from 'qiankun';
 // import { loadMicroApp } from 'qiankun';
 import '../index.less';
 
 const microApps = [
+  { name: 'vue2', entry: '//localhost:7101' },
   { name: 'react15', entry: '//localhost:7102' },
   { name: 'react16', entry: '//localhost:7100' },
 ];
